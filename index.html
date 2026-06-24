@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CTF: DOM-based XSS Challenge</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; }
+        .container { max-width: 600px; margin: auto; }
+        #output { margin-top: 20px; padding: 10px; border: 1px solid #ccc; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to the XSS Challenge</h1>
+        <p>Status: <span id="login-status">Not Logged In</span></p>
+        
+        <input type="text" id="username" placeholder="Enter username">
+        <button onclick="login()">Login</button>
+
+        <div id="output"></div>
+    </div>
+
+    <script>
+        // Generate a fake flag and store it in localStorage
+        const flag = "CTF{d0m_xss_1s_fun_" + Math.random().toString(36).substring(7) + "}";
+        localStorage.setItem("flag", flag);
+
+        function login() {
+            const username = document.getElementById('username').value;
+            // VULNERABLE: Directly injecting user input into innerHTML
+            document.getElementById('output').innerHTML = "Hello, " + username + "! Welcome back.";
+            document.getElementById('login-status').innerText = "Logged In";
+        }
+    </script>
+</body>
+</html>
