@@ -1,0 +1,25 @@
+{
+  "levels": [
+    {
+      "id": 1,
+      "title": "Dasar-Dasar",
+      "material": "Selamat datang! Di sini kita belajar elemen HTML dasar. Fokus kita adalah memahami struktur tag.",
+      "task": "Ubah teks di dalam tag <h1> menjadi 'Halo Dunia!'",
+      "goal": "<h1>Halo Dunia!</h1>"
+    },
+    {
+      "id": 2,
+      "title": "Logika CSS",
+      "material": "Sekarang kita belajar styling. CSS digunakan untuk mempercantik tampilan elemen.",
+      "task": "Ubah warna latar belakang kotak menjadi 'lightblue' menggunakan CSS.",
+      "goal": "background-color: lightblue;"
+    },
+    {
+      "id": 3,
+      "title": "Interaksi JS",
+      "material": "JavaScript membuat halamanmu hidup. Kita akan mencoba membuat tombol yang munculkan alert.",
+      "task": "Buat fungsi alert('Berhasil!') saat tombol diklik.",
+      "goal": "onclick=\"alert('Berhasil!')\""
+    }
+  ]
+}
