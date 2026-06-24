@@ -1,76 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CTF: DOM-based XSS Challenge</title>
-    <style>
-        body { font-family: sans-serif; padding: 20px; }
-        .container { max-width: 600px; margin: auto; }
-        #output { margin-top: 20px; padding: 10px; border: 1px solid #ccc; }
-        .hidden { display: none; }
-    </style>
+    <title>Cocoa Learning Game</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Welcome to the XSS Challenge</h1>
-        
-        <!-- Sesi Login -->
-        <div id="login-section">
-            <input type="text" id="username" placeholder="Enter username to start session">
-            <button onclick="startSession()">Start Session</button>
-        </div>
-
-        <!-- Level 1 (Hanya muncul setelah sesi dimulai) -->
-        <div id="level-1" class="hidden">
-            <p>Session active for: <span id="display-username"></span></p>
-            <p>Flag: <span id="display-flag"></span></p>
-            <hr>
-            <input type="text" id="xss-input" placeholder="Enter something...">
-            <button onclick="processInput()">Submit</button>
-            <div id="output"></div>
-            <button onclick="endSession()">End Session</button>
-        </div>
-    </div>
-
-    <script>
-        function startSession() {
-            const username = document.getElementById('username').value;
-            if (!username) return alert("Please enter a username");
-
-            // Generate flag unik
-            const flag = "CTF{d0m_xss_1s_fun_" + Math.random().toString(36).substring(7) + "}";
-            localStorage.setItem("session_user", username);
-            localStorage.setItem("flag", flag);
-
-            document.getElementById('display-username').innerText = username;
-            document.getElementById('display-flag').innerText = flag;
-            
-            document.getElementById('login-section').classList.add('hidden');
-            document.getElementById('level-1').classList.remove('hidden');
-        }
-
-        function endSession() {
-            localStorage.removeItem("session_user");
-            localStorage.removeItem("flag");
-            location.reload();
-        }
-
-        function processInput() {
-            const input = document.getElementById('xss-input').value;
-            // FIXED: Using textContent to prevent XSS
-            document.getElementById('output').textContent = "You entered: " + input;
-        }
-
-        // Cek sesi saat load
-        window.addEventListener('DOMContentLoaded', () => {
-            if (localStorage.getItem("session_user")) {
-                document.getElementById('display-username').innerText = localStorage.getItem("session_user");
-                document.getElementById('display-flag').innerText = localStorage.getItem("flag");
-                document.getElementById('login-section').classList.add('hidden');
-                document.getElementById('level-1').classList.remove('hidden');
-            }
-        });
-    </script>
+    <h1>Belajar Bareng Cocoa!</h1>
+    <div id="game-container">Loading level...</div>
+    <script src="script.js"></script>
 </body>
 </html>
