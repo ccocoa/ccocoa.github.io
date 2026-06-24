@@ -21,13 +21,17 @@ function startSession() {
 
 function logout() {
     sessionStorage.clear();
-    location.reload();
+    // Memastikan storage benar-benar bersih sebelum reload
+    setTimeout(() => {
+        location.reload();
+    }, 100);
 }
 
 function showGameUI(username) {
     document.getElementById('login-screen').style.display = 'none';
     document.getElementById('game-ui').style.display = 'block';
-    document.getElementById('user-info').style.display = 'block';
+    const userInfo = document.getElementById('user-info');
+    userInfo.style.display = 'flex';
     document.getElementById('username-display').innerText = username;
 
     fetch('levels.json')
