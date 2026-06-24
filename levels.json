@@ -15,6 +15,38 @@
       "task": "Cari cara memanipulasi URL agar bisa mengeksekusi script. Flag ada di localStorage.",
       "flag": "CTF{DOM_XSS_PRO}",
       "vulnerable_hint": "const params = new URLSearchParams(window.location.search); document.body.innerHTML = params.get('name');"
+    },
+    {
+      "id": 3,
+      "title": "Filter Bypass",
+      "material": "Input difilter untuk menghapus tag <script>. Namun, apakah filter tersebut cukup kuat?",
+      "task": "Bypass filter dengan menggunakan event handler seperti onerror atau onload pada tag img.",
+      "flag": "CTF{FILTER_BYPASSED_3}",
+      "vulnerable_hint": "userInput.replace(/<script>/gi, '');"
+    },
+    {
+      "id": 4,
+      "title": "Stored XSS",
+      "material": "Komentar yang kamu kirimkan akan disimpan di server dan ditampilkan ke semua pengguna.",
+      "task": "Masukkan payload XSS yang akan tereksekusi saat pengguna lain melihat halaman ini.",
+      "flag": "CTF{STORED_XSS_4}",
+      "vulnerable_hint": "db.save(comment); // Menampilkan tanpa sanitasi di halaman utama"
+    },
+    {
+      "id": 5,
+      "title": "Blind XSS",
+      "material": "Input dikirim ke panel admin yang tidak bisa kamu akses secara langsung.",
+      "task": "Kirim payload yang akan mengirimkan data admin ke server eksternal (webhook) milikmu.",
+      "flag": "CTF{BLIND_XSS_5}",
+      "vulnerable_hint": "Admin panel logs input without sanitization."
+    },
+    {
+      "id": 6,
+      "title": "CSP Bypass",
+      "material": "Content Security Policy (CSP) membatasi sumber script. Bisakah kamu melewati batasan ini?",
+      "task": "Cari cara untuk mengeksekusi script meskipun ada kebijakan CSP yang ketat.",
+      "flag": "CTF{CSP_BYPASS_6}",
+      "vulnerable_hint": "Content-Security-Policy: default-src 'self';"
     }
   ]
 }
