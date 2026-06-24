@@ -1,9 +1,15 @@
 let currentLevel = 0;
 let levels = [];
 
-// Setup initial state for CTF
-document.cookie = "flag=CTF{XSS_BASIC_101}";
-localStorage.setItem("flag", "CTF{DOM_XSS_PRO}");
+// Generate dynamic session flag
+function getSessionFlag(levelId) {
+    let sessionFlag = sessionStorage.getItem(`flag_lvl_${levelId}`);
+    if (!sessionFlag) {
+        sessionFlag = `CTF{${Math.random().toString(36).substring(2, 15).toUpperCase()}_${levelId}}`;
+        sessionStorage.setItem(`flag_lvl_${levelId}`, sessionFlag);
+    }
+    return sessionFlag;
+}
 
 fetch('levels.json')
   .then(res => res.json())
@@ -15,23 +21,27 @@ fetch('levels.json')
 function renderLevel() {
   const level = levels[currentLevel];
   const container = document.getElementById('game-container');
+  
+  // Dynamic UI Rendering
   container.innerHTML = `
-    <h2>Level ${level.id}: ${level.title}</h2>
-    <p>${level.material}</p>
-    <p><strong>Tugas:</strong> ${level.task}</p>
-    
-    <div style="border: 2px dashed #ff4757; padding: 15px; margin: 10px 0;">
-      <h3>Area Eksploitasi</h3>
+    <section class="card">
+        <h2>Level ${level.id}: ${level.title}</h2>
+        <p>${level.material}</p>
+        <p><strong>Tugas:</strong> ${level.task}</p>
+    </section>
+
+    <section class="card" id="playground">
+      <h3>Playground</h3>
       <input type="text" id="xss-input" placeholder="Masukkan payload...">
       <button onclick="runXSS()">Jalankan</button>
-      <div id="display"></div>
-    </div>
+      <div id="display" class="output-box"></div>
+    </section>
 
-    <div style="border: 2px solid #2ed573; padding: 15px;">
-      <h3>Area Submit Flag</h3>
+    <section class="card" id="submission">
+      <h3>Flag Submission</h3>
       <input type="text" id="flag-input" placeholder="CTF{...}">
       <button onclick="checkFlag()">Submit Flag</button>
-    </div>
+    </section>
   `;
 }
 
@@ -42,7 +52,9 @@ function runXSS() {
 
 function checkFlag() {
   const input = document.getElementById('flag-input').value;
-  if (input === levels[currentLevel].flag) {
+  const correctFlag = getSessionFlag(levels[currentLevel].id);
+  
+  if (input === correctFlag) {
     alert('Mantap, flag benar! Lanjut level berikutnya.');
     currentLevel++;
     if (currentLevel < levels.length) renderLevel();
