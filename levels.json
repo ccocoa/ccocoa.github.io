@@ -2,51 +2,45 @@
   "levels": [
     {
       "id": 1,
-      "title": "Reflected XSS",
-      "material": "Input di bawah ini di-render menggunakan innerHTML tanpa sanitasi. Coba masukkan tag script untuk menampilkan alert!",
-      "task": "Gunakan payload XSS untuk memunculkan alert(document.cookie). Flag tersembunyi di cookie.",
-      "flag": "CTF{XSS_BASIC_101}",
-      "vulnerable_hint": "document.getElementById('display').innerHTML = userInput;"
+      "title": "Reflected XSS Analysis",
+      "material": "Aplikasi ini merefleksikan input pengguna langsung ke DOM tanpa sanitasi. Analisis bagaimana browser memproses tag HTML yang disuntikkan.",
+      "task": "Dapatkan flag sesi dengan mengeksekusi alert(document.cookie) atau mengakses sessionStorage.",
+      "vulnerable_hint": "Perhatikan bagaimana innerHTML menangani tag <script> vs event handler."
     },
     {
       "id": 2,
-      "title": "DOM XSS",
-      "material": "Aplikasi ini mengambil nilai dari URL parameter 'name' dan menampilkannya langsung.",
-      "task": "Cari cara memanipulasi URL agar bisa mengeksekusi script. Flag ada di localStorage.",
-      "flag": "CTF{DOM_XSS_PRO}",
-      "vulnerable_hint": "const params = new URLSearchParams(window.location.search); document.body.innerHTML = params.get('name');"
+      "title": "DOM-based XSS Exploitation",
+      "material": "Aplikasi mengambil data dari sumber yang tidak aman (seperti URL fragment atau query params) dan menggunakannya dalam sink yang berbahaya.",
+      "task": "Identifikasi sink yang digunakan dan buat payload yang memicu eksekusi kode JavaScript.",
+      "vulnerable_hint": "Periksa bagaimana data mengalir dari sumber (source) ke sink (sink)."
     },
     {
       "id": 3,
-      "title": "Filter Bypass",
-      "material": "Input difilter untuk menghapus tag <script>. Namun, apakah filter tersebut cukup kuat?",
-      "task": "Bypass filter dengan menggunakan event handler seperti onerror atau onload pada tag img.",
-      "flag": "CTF{FILTER_BYPASSED_3}",
-      "vulnerable_hint": "userInput.replace(/<script>/gi, '');"
+      "title": "Advanced Filter Evasion",
+      "material": "Filter sisi klien mencoba memblokir kata kunci berbahaya. Namun, filter seringkali tidak lengkap atau bisa diakali dengan teknik encoding.",
+      "task": "Bypass filter yang ada dengan menggunakan teknik encoding atau event handler yang tidak terduga.",
+      "vulnerable_hint": "Coba gunakan teknik seperti URL encoding, double encoding, atau event handler alternatif."
     },
     {
       "id": 4,
-      "title": "Stored XSS",
-      "material": "Komentar yang kamu kirimkan akan disimpan di server dan ditampilkan ke semua pengguna.",
-      "task": "Masukkan payload XSS yang akan tereksekusi saat pengguna lain melihat halaman ini.",
-      "flag": "CTF{STORED_XSS_4}",
-      "vulnerable_hint": "db.save(comment); // Menampilkan tanpa sanitasi di halaman utama"
+      "title": "Stored XSS Persistence",
+      "material": "Input disimpan secara permanen dan ditampilkan kepada pengguna lain. Ini adalah ancaman serius bagi integritas data.",
+      "task": "Simulasikan serangan Stored XSS yang dapat mencuri informasi sesi pengguna lain.",
+      "vulnerable_hint": "Fokus pada bagaimana payload dapat bertahan dan tereksekusi di sesi pengguna yang berbeda."
     },
     {
       "id": 5,
-      "title": "Blind XSS",
-      "material": "Input dikirim ke panel admin yang tidak bisa kamu akses secara langsung.",
-      "task": "Kirim payload yang akan mengirimkan data admin ke server eksternal (webhook) milikmu.",
-      "flag": "CTF{BLIND_XSS_5}",
-      "vulnerable_hint": "Admin panel logs input without sanitization."
+      "title": "Blind XSS & Exfiltration",
+      "material": "Payload tereksekusi di lingkungan yang tidak terlihat oleh penyerang (misalnya panel admin).",
+      "task": "Buat payload yang mengirimkan data sensitif ke server eksternal (gunakan webhook simulasi).",
+      "vulnerable_hint": "Gunakan teknik fetch() atau manipulasi DOM untuk mengirim data keluar."
     },
     {
       "id": 6,
-      "title": "CSP Bypass",
-      "material": "Content Security Policy (CSP) membatasi sumber script. Bisakah kamu melewati batasan ini?",
-      "task": "Cari cara untuk mengeksekusi script meskipun ada kebijakan CSP yang ketat.",
-      "flag": "CTF{CSP_BYPASS_6}",
-      "vulnerable_hint": "Content-Security-Policy: default-src 'self';"
+      "title": "CSP Policy Analysis",
+      "material": "Content Security Policy (CSP) adalah pertahanan utama. Analisis kebijakan yang diterapkan dan cari celah untuk mengeksekusi script.",
+      "task": "Cari cara untuk mengeksekusi script meskipun ada kebijakan CSP yang membatasi sumber eksternal.",
+      "vulnerable_hint": "Cari tahu apakah ada 'unsafe-inline' atau sumber yang diizinkan yang bisa disalahgunakan."
     }
   ]
 }
