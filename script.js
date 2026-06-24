@@ -11,18 +11,49 @@ function getSessionFlag(levelId) {
     return sessionFlag;
 }
 
-fetch('levels.json')
-  .then(res => res.json())
-  .then(data => {
-    levels = data.levels;
-    renderLevel();
-  });
+function startSession() {
+    const username = document.getElementById('username-input').value;
+    if (!username) {
+        alert('Masukkan nama pengguna!');
+        return;
+    }
+    sessionStorage.setItem('username', username);
+    
+    // Generate flags for all levels
+    levels.forEach(level => getSessionFlag(level.id));
+    
+    initGame();
+}
+
+function logout() {
+    sessionStorage.clear();
+    location.reload();
+}
+
+function initGame() {
+    const username = sessionStorage.getItem('username');
+    if (!username) {
+        document.getElementById('login-screen').style.display = 'block';
+        document.getElementById('main-header').style.display = 'none';
+        return;
+    }
+
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('main-header').style.display = 'flex';
+    document.getElementById('username-display').innerText = `Halo, ${username}!`;
+    
+    fetch('levels.json')
+      .then(res => res.json())
+      .then(data => {
+        levels = data.levels;
+        renderLevel();
+      });
+}
 
 function renderLevel() {
   const level = levels[currentLevel];
   const container = document.getElementById('game-container');
   
-  // Dynamic UI Rendering
   container.innerHTML = `
     <section class="card">
         <h2>Level ${level.id}: ${level.title}</h2>
@@ -63,3 +94,6 @@ function checkFlag() {
     alert('Flag salah, coba lagi!');
   }
 }
+
+// Check session on load
+window.onload = initGame;

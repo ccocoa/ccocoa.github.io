@@ -8,11 +8,20 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
+    <header id="main-header" style="display: none;">
         <h1>Belajar Bareng Cocoa!</h1>
+        <div id="user-info">
+            <span id="username-display"></span>
+            <button onclick="logout()">Logout</button>
+        </div>
     </header>
+
     <main id="game-container">
-        <p>Loading level...</p>
+        <section id="login-screen" class="card">
+            <h2>Login untuk Bermain</h2>
+            <input type="text" id="username-input" placeholder="Masukkan nama pengguna...">
+            <button onclick="startSession()">Mulai Sesi</button>
+        </section>
     </main>
     <script src="script.js"></script>
 </body>
