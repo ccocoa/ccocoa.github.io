@@ -10,10 +10,27 @@
 <body>
     <header>
         <h1>Belajar Bareng Cocoa!</h1>
+        <div id="user-info" style="display: none;">
+            Halo, <span id="username-display"></span>! 
+            <button onclick="logout()">Logout</button>
+        </div>
     </header>
+
     <main id="game-container">
-        <p>Loading level...</p>
+        <!-- Login Screen -->
+        <section id="login-screen" class="card">
+            <h2>Selamat Datang!</h2>
+            <p>Masukkan nama kamu untuk memulai sesi belajar.</p>
+            <input type="text" id="username-input" placeholder="Nama kamu...">
+            <button onclick="startSession()">Mulai Belajar</button>
+        </section>
+
+        <!-- Game UI -->
+        <section id="game-ui" style="display: none;">
+            <div id="level-content"></div>
+        </section>
     </main>
+
     <script src="script.js"></script>
 </body>
 </html>
