@@ -22,6 +22,9 @@ function renderLevel() {
   const level = levels[currentLevel];
   const container = document.getElementById('game-container');
   
+  // Generate and store flag for the current level
+  getSessionFlag(level.id);
+  
   // Dynamic UI Rendering
   container.innerHTML = `
     <section class="card">
