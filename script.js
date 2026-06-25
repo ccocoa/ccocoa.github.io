@@ -21,7 +21,6 @@ function startSession() {
 
 function logout() {
     sessionStorage.clear();
-    // Memastikan storage benar-benar bersih sebelum reload
     setTimeout(() => {
         location.reload();
     }, 100);
@@ -62,8 +61,10 @@ function renderLevel() {
     container.innerHTML = `
         <section class="card">
             <h2>Level ${level.id}: ${level.title}</h2>
-            <p>${level.context}</p>
-            <p><strong>Tugas:</strong> ${level.mission}</p>
+            <p><strong>Konsep:</strong> ${level.concept}</p>
+            <p><strong>Kasus Nyata:</strong> ${level.real_world_case}</p>
+            <p><strong>Analisis Teknis:</strong> ${level.technical_analysis}</p>
+            <p><strong>Tugas:</strong> ${level.challenge}</p>
         </section>
 
         <section class="card" id="playground">
