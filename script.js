@@ -62,8 +62,8 @@ function renderLevel() {
     container.innerHTML = `
         <section class="card">
             <h2>Level ${level.id}: ${level.title}</h2>
-            <p>${level.material}</p>
-            <p><strong>Tugas:</strong> ${level.task}</p>
+            <p>${level.context}</p>
+            <p><strong>Tugas:</strong> ${level.mission}</p>
         </section>
 
         <section class="card" id="playground">
