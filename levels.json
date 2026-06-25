@@ -3,44 +3,74 @@
     {
       "id": 1,
       "title": "Reflected XSS Analysis",
-      "material": "Aplikasi ini merefleksikan input pengguna langsung ke DOM tanpa sanitasi. Analisis bagaimana browser memproses tag HTML yang disuntikkan.",
-      "task": "Dapatkan flag sesi dengan mengeksekusi alert(document.cookie) atau mengakses sessionStorage.",
-      "vulnerable_hint": "Perhatikan bagaimana innerHTML menangani tag <script> vs event handler."
+      "context": "Aplikasi web modern sering kali mengambil input dari URL dan menampilkannya kembali ke halaman. Jika input ini tidak disanitasi, browser akan mengeksekusinya sebagai kode.",
+      "mission": "Injeksi payload JavaScript untuk memicu alert(document.cookie).",
+      "learning_objective": "Memahami bagaimana browser membedakan antara konten teks dan kode eksekusi dalam DOM.",
+      "hints": [
+        "Periksa elemen mana yang menerima input dari URL.",
+        "Coba masukkan tag HTML sederhana seperti <h1>test</h1>.",
+        "Bagaimana cara memicu JavaScript tanpa menggunakan tag <script>?"
+      ]
     },
     {
       "id": 2,
       "title": "DOM-based XSS Exploitation",
-      "material": "Aplikasi mengambil data dari sumber yang tidak aman (seperti URL fragment atau query params) dan menggunakannya dalam sink yang berbahaya.",
-      "task": "Identifikasi sink yang digunakan dan buat payload yang memicu eksekusi kode JavaScript.",
-      "vulnerable_hint": "Periksa bagaimana data mengalir dari sumber (source) ke sink (sink)."
+      "context": "DOM-based XSS terjadi sepenuhnya di sisi klien. Data mengalir dari 'source' (seperti location.hash) ke 'sink' (seperti innerHTML) tanpa pernah menyentuh server.",
+      "mission": "Identifikasi sink yang rentan dan picu eksekusi kode melalui URL fragment.",
+      "learning_objective": "Melacak aliran data (taint analysis) dari sumber yang dikontrol pengguna ke sink yang berbahaya.",
+      "hints": [
+        "Gunakan Developer Tools untuk mencari penggunaan innerHTML atau document.write.",
+        "Perhatikan bagaimana URL fragment (#) diproses oleh skrip.",
+        "Payload apa yang bisa memecah konteks string dan memasukkan tag baru?"
+      ]
     },
     {
       "id": 3,
       "title": "Advanced Filter Evasion",
-      "material": "Filter sisi klien mencoba memblokir kata kunci berbahaya. Namun, filter seringkali tidak lengkap atau bisa diakali dengan teknik encoding.",
-      "task": "Bypass filter yang ada dengan menggunakan teknik encoding atau event handler yang tidak terduga.",
-      "vulnerable_hint": "Coba gunakan teknik seperti URL encoding, double encoding, atau event handler alternatif."
+      "context": "Pengembang sering mencoba memblokir karakter berbahaya (seperti <script>). Namun, daftar hitam (blacklist) hampir selalu bisa diakali.",
+      "mission": "Bypass filter input dan jalankan alert(1).",
+      "learning_objective": "Mempelajari teknik pengaburan (obfuscation) dan cara kerja filter berbasis regex.",
+      "hints": [
+        "Apakah filter memblokir semua tag atau hanya <script>?",
+        "Coba gunakan event handler seperti onerror atau onload.",
+        "Bagaimana jika kamu menggunakan encoding atau case-sensitivity untuk menipu filter?"
+      ]
     },
     {
       "id": 4,
       "title": "Stored XSS Persistence",
-      "material": "Input disimpan secara permanen dan ditampilkan kepada pengguna lain. Ini adalah ancaman serius bagi integritas data.",
-      "task": "Simulasikan serangan Stored XSS yang dapat mencuri informasi sesi pengguna lain.",
-      "vulnerable_hint": "Fokus pada bagaimana payload dapat bertahan dan tereksekusi di sesi pengguna yang berbeda."
+      "context": "Stored XSS adalah 'holy grail' bagi penyerang. Payload disimpan di server dan akan tereksekusi setiap kali korban membuka halaman yang terinfeksi.",
+      "mission": "Simpan payload di database simulasi yang akan tereksekusi saat halaman dimuat ulang.",
+      "learning_objective": "Memahami perbedaan antara Reflected dan Stored XSS serta dampaknya terhadap persistensi serangan.",
+      "hints": [
+        "Cari fitur yang menyimpan input pengguna (misal: komentar atau profil).",
+        "Payload harus tetap aktif setelah halaman di-refresh.",
+        "Bagaimana cara memastikan payload tidak terlihat oleh pengguna biasa namun tetap tereksekusi?"
+      ]
     },
     {
       "id": 5,
       "title": "Blind XSS & Exfiltration",
-      "material": "Payload tereksekusi di lingkungan yang tidak terlihat oleh penyerang (misalnya panel admin).",
-      "task": "Buat payload yang mengirimkan data sensitif ke server eksternal (gunakan webhook simulasi).",
-      "vulnerable_hint": "Gunakan teknik fetch() atau manipulasi DOM untuk mengirim data keluar."
+      "context": "Terkadang, payload tereksekusi di tempat yang tidak bisa kamu lihat, seperti panel admin. Kamu harus membuat payload yang 'melapor balik'.",
+      "mission": "Curi data sensitif dari sesi korban dan kirimkan ke server eksternal (webhook).",
+      "learning_objective": "Menguasai teknik exfiltration data menggunakan fetch() atau manipulasi DOM.",
+      "hints": [
+        "Gunakan webhook.site untuk menangkap data yang dikirim.",
+        "Bagaimana cara membaca document.cookie dan mengirimkannya melalui request HTTP?",
+        "Pastikan payload kamu tidak merusak tampilan halaman agar tidak dicurigai."
+      ]
     },
     {
       "id": 6,
       "title": "CSP Policy Analysis",
-      "material": "Content Security Policy (CSP) adalah pertahanan utama. Analisis kebijakan yang diterapkan dan cari celah untuk mengeksekusi script.",
-      "task": "Cari cara untuk mengeksekusi script meskipun ada kebijakan CSP yang membatasi sumber eksternal.",
-      "vulnerable_hint": "Cari tahu apakah ada 'unsafe-inline' atau sumber yang diizinkan yang bisa disalahgunakan."
+      "context": "Content Security Policy (CSP) adalah lapisan pertahanan terakhir. Kebijakan yang salah konfigurasi bisa memberikan rasa aman palsu.",
+      "mission": "Cari celah dalam kebijakan CSP untuk mengeksekusi script eksternal.",
+      "learning_objective": "Menganalisis header CSP dan mengeksploitasi direktif yang terlalu longgar.",
+      "hints": [
+        "Periksa header HTTP 'Content-Security-Policy'.",
+        "Apakah ada direktif 'unsafe-inline' atau 'unsafe-eval'?",
+        "Bisakah kamu memanfaatkan library yang diizinkan (whitelist) untuk mengeksekusi kode?"
+      ]
     }
   ]
 }
