@@ -1,0 +1,24 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Login from '../components/Login.astro';
+import Game from '../components/Game.astro';
+---
+
+<Layout title="Cocoa Learning Game">
+    <Header />
+    <main id="game-container">
+        <Login />
+        <Game />
+    </main>
+
+    <script>
+        import { startSession, logout } from '../scripts/auth.js';
+        import { initGame } from '../scripts/game.js';
+
+        document.getElementById('start-btn')?.addEventListener('click', startSession);
+        document.getElementById('logout-btn')?.addEventListener('click', logout);
+        
+        initGame();
+    </script>
+</Layout>

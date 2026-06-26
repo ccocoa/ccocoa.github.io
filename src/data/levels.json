@@ -1,0 +1,10 @@
+{
+  "levels": [
+    {
+      "id": 1,
+      "title": "XSS Dasar",
+      "concept": "Cross-Site Scripting",
+      "challenge": "Masukkan script alert(1)"
+    }
+  ]
+}

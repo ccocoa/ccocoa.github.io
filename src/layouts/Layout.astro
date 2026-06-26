@@ -1,0 +1,20 @@
+---
+interface Props {
+	title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="id">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<title>{title}</title>
+		<link rel="stylesheet" href="https://matifandy8.github.io/NeoBrutalismCSS/style.css">
+	</head>
+	<body>
+		<slot />
+	</body>
+</html>
