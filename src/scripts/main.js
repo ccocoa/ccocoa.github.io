@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-function startSession() {
+window.startSession = function() {
     const username = document.getElementById('username-input').value;
     if (!username) {
         alert('Masukkan nama terlebih dahulu!');
@@ -19,7 +19,7 @@ function startSession() {
     showGameUI(username);
 }
 
-function logout() {
+window.logout = function() {
     sessionStorage.clear();
     setTimeout(() => {
         location.reload();
@@ -33,7 +33,7 @@ function showGameUI(username) {
     userInfo.style.display = 'flex';
     document.getElementById('username-display').innerText = username;
 
-    fetch('levels.json')
+    fetch('/levels.json')
         .then(res => res.json())
         .then(data => {
             levels = data.levels;
@@ -82,12 +82,12 @@ function renderLevel() {
     `;
 }
 
-function runXSS() {
+window.runXSS = function() {
     const input = document.getElementById('xss-input').value;
     document.getElementById('display').innerHTML = input;
 }
 
-function checkFlag() {
+window.checkFlag = function() {
     const input = document.getElementById('flag-input').value;
     const correctFlag = getSessionFlag(levels[currentLevel].id);
     

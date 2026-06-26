@@ -6,3 +6,16 @@ dist
 .netlify
 .DS_Store
 *.log
+
+# Default ignores added by Kokoa Executor
+node_modules/
+dist/
+build/
+.next/
+.astro/
+.nuxt/
+out/
+.env
+.env.local
+.env.production
+.env.development
