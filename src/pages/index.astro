@@ -1,24 +1,37 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Header from '../components/Header.astro';
-import Login from '../components/Login.astro';
-import Game from '../components/Game.astro';
 ---
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cocoa Learning Game - NeoBrutalism</title>
+    <link rel="stylesheet" href="https://matifandy8.github.io/NeoBrutalismCSS/style.css">
+    <link rel="stylesheet" href="/styles/global.css">
+</head>
+<body>
+    <header>
+        <h1>Belajar Bareng Cocoa!</h1>
+        <div id="user-info" style="display: none;">
+            Halo, <span id="username-display"></span>! 
+            <button onclick="logout()">Logout</button>
+        </div>
+    </header>
 
-<Layout title="Cocoa Learning Game">
-    <Header />
     <main id="game-container">
-        <Login />
-        <Game />
+        <!-- Login Screen -->
+        <section id="login-screen" class="card">
+            <h2>Selamat Datang!</h2>
+            <p>Masukkan nama kamu untuk memulai sesi belajar.</p>
+            <input type="text" id="username-input" placeholder="Nama kamu...">
+            <button onclick="startSession()">Mulai Belajar</button>
+        </section>
+
+        <!-- Game UI -->
+        <section id="game-ui" style="display: none;">
+            <div id="level-content"></div>
+        </section>
     </main>
 
-    <script>
-        import { startSession, logout } from '../scripts/auth.js';
-        import { initGame } from '../scripts/game.js';
-
-        document.getElementById('start-btn')?.addEventListener('click', startSession);
-        document.getElementById('logout-btn')?.addEventListener('click', logout);
-        
-        initGame();
-    </script>
-</Layout>
+    <script src="/scripts/main.js" type="module"></script>
+</body>
+</html>
