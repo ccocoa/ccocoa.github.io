@@ -1,39 +1,36 @@
 ---
+import Layout from '../layouts/Layout.astro';
 ---
-<html lang="id" data-theme="light">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cocoa Learning Game</title>
-</head>
-<body class="min-h-screen bg-base-200 p-4">
-    <header class="navbar bg-base-100 shadow-lg rounded-box mb-6">
-        <div class="flex-1">
-            <h1 class="text-2xl font-bold px-4">Belajar Bareng Cocoa!</h1>
-        </div>
-        <div id="user-info" class="hidden flex-none gap-2 px-4">
-            <span>Halo, <span id="username-display" class="font-semibold"></span>!</span>
-            <button onclick="logout()" class="btn btn-sm btn-error">Logout</button>
-        </div>
-    </header>
 
-    <main id="game-container" class="container mx-auto">
-        <!-- Login Screen -->
-        <section id="login-screen" class="card bg-base-100 shadow-xl p-8 max-w-md mx-auto">
-            <div class="card-body">
-                <h2 class="card-title text-2xl">Selamat Datang!</h2>
-                <p class="py-4">Masukkan nama kamu untuk memulai sesi belajar.</p>
-                <input type="text" id="username-input" placeholder="Nama kamu..." class="input input-bordered w-full mb-4">
-                <button onclick="startSession()" class="btn btn-primary w-full">Mulai Belajar</button>
+<Layout title="Cocoa Learning Game">
+    <main class="min-h-screen bg-base-200 p-4">
+        <header class="navbar bg-base-100 shadow-lg rounded-box mb-6">
+            <div class="flex-1">
+                <h1 class="text-2xl font-bold px-4">Belajar Bareng Cocoa!</h1>
             </div>
-        </section>
+            <div id="user-info" class="hidden flex-none gap-2 px-4">
+                <span>Halo, <span id="username-display" class="font-semibold"></span>!</span>
+                <button onclick="logout()" class="btn btn-sm btn-error">Logout</button>
+            </div>
+        </header>
 
-        <!-- Game UI -->
-        <section id="game-ui" class="hidden">
-            <div id="level-content" class="card bg-base-100 shadow-xl p-6"></div>
-        </section>
+        <div id="game-container" class="container mx-auto">
+            <!-- Login Screen -->
+            <section id="login-screen" class="card bg-base-100 shadow-xl p-8 max-w-md mx-auto">
+                <div class="card-body">
+                    <h2 class="card-title text-2xl">Selamat Datang!</h2>
+                    <p class="py-4">Masukkan nama kamu untuk memulai sesi belajar.</p>
+                    <input type="text" id="username-input" placeholder="Nama kamu..." class="input input-bordered w-full mb-4">
+                    <button onclick="startSession()" class="btn btn-primary w-full">Mulai Belajar</button>
+                </div>
+            </section>
+
+            <!-- Game UI -->
+            <section id="game-ui" class="hidden">
+                <div id="level-content" class="card bg-base-100 shadow-xl p-6"></div>
+            </section>
+        </div>
     </main>
+</Layout>
 
-    <script src="/scripts/main.js" type="module"></script>
-</body>
-</html>
+<script src="/scripts/main.js" type="module"></script>

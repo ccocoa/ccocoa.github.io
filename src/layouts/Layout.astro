@@ -4,15 +4,15 @@ interface Props {
 }
 
 const { title } = Astro.props;
+import '../styles/global.css';
 ---
 
 <!doctype html>
-<html lang="id">
+<html lang="id" data-theme="light">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
 		<title>{title}</title>
-		<link rel="stylesheet" href="https://matifandy8.github.io/NeoBrutalismCSS/style.css">
 	</head>
 	<body>
 		<slot />
