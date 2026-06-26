@@ -1,15 +1,8 @@
-
-# Default ignores added by Kokoa Executor
-node_modules/
-dist/
-build/
-.next/
-.astro/
-.nuxt/
-out/
-*.log
+node_modules
+dist
+.astro
+.output
+.vercel
+.netlify
 .DS_Store
-.env
-.env.local
-.env.production
-.env.development
+*.log
