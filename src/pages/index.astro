@@ -1,20 +1,17 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { modules } from '../scripts/data.js';
+import { tasks } from '../scripts/data.js';
 ---
 
 <Layout title="CTF Platform">
     <main class="min-h-screen p-6 md:p-12">
         <header class="max-w-3xl mx-auto mb-12 text-center">
             <pre class="inline-block text-left overflow-x-auto whitespace-pre font-mono text-[10px] sm:text-xs md:text-sm lg:text-base leading-tight select-none text-primary">
- $$$\  $$$$\ $$$$\ 
-$  __$\ \__$  __|$  _____|
-$ /  \__|   $ |   $ |      
-$ |         $ |   $$$\    
-$ |         $ |   $  __|   
-$ |  $\    $ |   $ |      
-\$$$  |   $ |   $ |      
- \______/    \__|   \__|      
+  ____  _____ _____ 
+ / ___||_   _|  ___|
+| |      | | | |_   
+| |___   | | |  _|  
+ \____|  |_| |_|    
             </pre>
         </header>
 
@@ -42,28 +39,24 @@ $ |  $\    $ |   $ |
             <!-- Game UI -->
             <section id="game-ui" class="hidden">
                 <div class="space-y-4">
-                    {modules.map((module) => (
+                    {tasks.map((task) => (
                         <div class="collapse collapse-arrow bg-base-200">
-                            <input type="radio" name="my-accordion-2" checked="checked" /> 
+                            <input type="radio" name="task-accordion" /> 
                             <div class="collapse-title text-xl font-medium">
-                                {module.title}
+                                {task.title}
                             </div>
                             <div class="collapse-content"> 
-                                <ul class="menu bg-base-100 rounded-box">
-                                    {module.tasks.map((task) => (
-                                        <li>
-                                            <a class={task.status === 'locked' ? 'text-gray-400 cursor-not-allowed' : ''}>
-                                                {task.title}
-                                                {task.status === 'locked' && <span class="badge badge-sm">Locked</span>}
-                                            </a>
-                                        </li>
-                                    ))}
-                                </ul>
+                                <p class="mb-4">{task.materi}</p>
+                                <div class="bg-base-300 p-4 rounded mb-4">
+                                    <p class="font-mono text-sm">{task.eksperimen}</p>
+                                </div>
+                                <div class="form-control">
+                                    <input type="text" placeholder="Enter flag here..." class="input input-bordered w-full" />
+                                </div>
                             </div>
                         </div>
                     ))}
                 </div>
-                <div id="level-content" class="bg-base-200 p-8 rounded-xl shadow-sm mt-8"></div>
             </section>
         </div>
     </main>
