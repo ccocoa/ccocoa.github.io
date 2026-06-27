@@ -41,16 +41,16 @@ import { tasks } from '../scripts/data.js';
                 <div class="space-y-4">
                     {tasks.map((task) => (
                         <div class="collapse collapse-arrow bg-base-200">
-                            <input type="radio" name="task-accordion" /> 
+                            <input type="checkbox" /> 
                             <div class="collapse-title text-xl font-medium">
                                 {task.title}
                             </div>
                             <div class="collapse-content"> 
-                                <p class="mb-4">{task.materi}</p>
+                                <div class="prose prose-sm max-w-none mb-4" set:html={task.materi} />
                                 <div class="bg-base-300 p-4 rounded mb-4">
                                     <p class="font-mono text-sm">{task.eksperimen}</p>
                                 </div>
-                                <div class="form-control">
+                                <div class="form-control mt-4 w-full">
                                     <input type="text" placeholder="Enter flag here..." class="input input-bordered w-full" />
                                 </div>
                             </div>
