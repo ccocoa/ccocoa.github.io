@@ -16,6 +16,8 @@ window.startSession = function() {
         return;
     }
     sessionStorage.setItem('username', username);
+    // Arahkan ke level 1
+    currentLevel = 0; 
     showGameUI(username);
 }
 
