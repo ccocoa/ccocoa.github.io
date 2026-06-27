@@ -16,12 +16,18 @@ import Layout from '../layouts/Layout.astro';
 
         <div id="game-container" class="max-w-3xl mx-auto">
             <!-- Login Screen -->
-            <section id="login-screen" class="card bg-base-200 shadow-sm">
+            <section id="login-screen" class="card bg-base-100 border border-base-300 shadow-xl max-w-md mx-auto">
                 <div class="card-body">
-                    <h2 class="card-title text-lg mb-4">Authentication</h2>
-                    <div class="flex flex-col gap-4">
-                        <input type="text" id="username-input" placeholder="Enter your username" class="input input-bordered w-full">
-                        <button onclick="startSession()" class="btn btn-primary w-full">Start Session</button>
+                    <h2 class="card-title text-2xl font-bold mb-2">Login</h2>
+                    <p class="text-base-content/60 mb-6">Enter your username to start the challenge.</p>
+                    <div class="form-control w-full gap-4">
+                        <div class="form-control w-full">
+                            <label class="label">
+                                <span class="label-text font-medium">Username</span>
+                            </label>
+                            <input type="text" id="username-input" placeholder="e.g. player1" class="input input-bordered w-full focus:input-primary">
+                        </div>
+                        <button onclick="startSession()" class="btn btn-primary w-full mt-2">Start Session</button>
                     </div>
                 </div>
             </section>
