@@ -4,6 +4,6 @@
 
 @layer base {
   body {
-    @apply font-mono bg-base-300 text-base-content;
+    @apply font-sans bg-base-100 text-base-content;
   }
 }
