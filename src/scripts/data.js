@@ -25,6 +25,7 @@ export const tasks = [
       </ul>
     `,
     eksperimen: "Coba suntikkan payload &lt;script&gt;alert(document.domain)&lt;/script&gt; ke dalam input yang rentan.",
+    playground: "Test your payload here...",
     flag: "CTF{xss_is_everywhere}"
   }
 ];
