@@ -3,28 +3,32 @@ import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout title="CTF Platform">
-    <main class="min-h-screen p-4 md:p-8">
-        <header class="border-b border-base-content/20 pb-6 mb-8 flex justify-between items-center">
-            <h1 class="text-3xl font-bold tracking-tighter uppercase">Terminal_CTF</h1>
-            <div id="user-info" class="hidden flex items-center gap-4">
-                <span class="text-sm opacity-70">USER: <span id="username-display" class="font-bold text-primary"></span></span>
-                <button onclick="logout()" class="btn btn-outline btn-xs btn-error">LOGOUT</button>
-            </div>
+    <main class="min-h-screen p-6 md:p-12">
+        <header class="max-w-3xl mx-auto mb-12">
+            <h1 class="text-4xl font-extrabold tracking-tight mb-2">CTF Platform</h1>
+            <p class="text-base-content/60">Welcome to the challenge environment.</p>
         </header>
 
-        <div id="game-container" class="max-w-4xl mx-auto">
+        <div id="user-info" class="hidden max-w-3xl mx-auto mb-8 flex justify-end items-center gap-4">
+            <span class="text-sm">User: <span id="username-display" class="font-semibold text-primary"></span></span>
+            <button onclick="logout()" class="btn btn-ghost btn-sm">Logout</button>
+        </div>
+
+        <div id="game-container" class="max-w-3xl mx-auto">
             <!-- Login Screen -->
-            <section id="login-screen" class="border border-base-content/20 p-8 bg-base-100">
-                <h2 class="text-xl font-bold mb-6 uppercase">Authentication Required</h2>
-                <div class="flex flex-col gap-4">
-                    <input type="text" id="username-input" placeholder="ENTER_USERNAME" class="input input-bordered w-full rounded-none bg-base-200">
-                    <button onclick="startSession()" class="btn btn-primary w-full rounded-none">INITIALIZE_SESSION</button>
+            <section id="login-screen" class="card bg-base-200 shadow-sm">
+                <div class="card-body">
+                    <h2 class="card-title text-lg mb-4">Authentication</h2>
+                    <div class="flex flex-col gap-4">
+                        <input type="text" id="username-input" placeholder="Enter your username" class="input input-bordered w-full">
+                        <button onclick="startSession()" class="btn btn-primary w-full">Start Session</button>
+                    </div>
                 </div>
             </section>
 
             <!-- Game UI -->
             <section id="game-ui" class="hidden">
-                <div id="level-content" class="p-6 border border-base-content/20 bg-base-100"></div>
+                <div id="level-content" class="bg-base-200 p-8 rounded-xl shadow-sm"></div>
             </section>
         </div>
     </main>
