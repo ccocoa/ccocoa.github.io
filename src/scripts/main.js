@@ -1,5 +1,31 @@
 let levels = [];
 
+// Hooking alert
+const originalAlert = window.alert;
+window.alert = function(message) {
+    if (message === 1) {
+        const username = sessionStorage.getItem('username');
+        fetch('/api/get-flag', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username })
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.flag) {
+                const display = document.querySelector(`[id^="display-"]`);
+                if (display) {
+                    display.innerHTML = `Flag ditemukan: ${data.flag}`;
+                }
+                originalAlert(`Flag: ${data.flag}`);
+            }
+        })
+        .catch(err => console.error(err));
+    } else {
+        originalAlert(message);
+    }
+};
+
 // Inisialisasi saat load
 document.addEventListener('DOMContentLoaded', () => {
     const username = sessionStorage.getItem('username');
@@ -92,7 +118,11 @@ function renderMissionBoard() {
 
 window.runTask = function(id) {
     const input = document.getElementById(`input-${id}`).value;
-    document.getElementById(`display-${id}`).innerHTML = input;
+    try {
+        eval(input);
+    } catch (e) {
+        document.getElementById(`display-${id}`).innerHTML = input;
+    }
 }
 
 window.submitTask = async function(id) {

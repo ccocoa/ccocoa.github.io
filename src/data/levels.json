@@ -4,7 +4,7 @@
       "id": 1,
       "title": "XSS Dasar",
       "concept": "Cross-Site Scripting",
-      "challenge": "Masukkan script alert(1)"
+      "challenge": "Jalankan alert(1) untuk mendapatkan flag."
     }
   ]
 }
