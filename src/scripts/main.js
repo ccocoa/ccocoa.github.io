@@ -95,15 +95,26 @@ window.runTask = function(id) {
     document.getElementById(`display-${id}`).innerHTML = input;
 }
 
-window.submitTask = function(id) {
+window.submitTask = async function(id) {
     const input = document.getElementById(`flag-${id}`).value;
-    const correctFlag = getSessionFlag(id);
     
-    if (input === correctFlag) {
-        localStorage.setItem(`task_done_${id}`, 'true');
-        alert('Mantap, flag benar!');
-        renderMissionBoard();
-    } else {
-        alert('Flag salah, coba lagi!');
+    try {
+        const response = await fetch('/api/verify', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ levelId: id, flag: input })
+        });
+        const result = await response.json();
+        
+        if (result.success) {
+            localStorage.setItem(`task_done_${id}`, 'true');
+            alert('Mantap, flag benar!');
+            renderMissionBoard();
+        } else {
+            alert(result.message);
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Terjadi kesalahan saat memvalidasi flag.');
     }
 }
