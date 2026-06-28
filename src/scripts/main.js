@@ -74,14 +74,14 @@ function renderMissionBoard() {
                         <div class="p-4 bg-base-100 rounded border">
                             <h4 class="font-bold mb-2">Playground</h4>
                             <input type="text" id="input-${level.id}" placeholder="Masukkan payload..." class="input input-bordered w-full mb-2 px-4">
-                            <button onclick="runTask('${level.id}')" class="btn btn-secondary btn-sm">Jalankan</button>
+                            <button onclick="runTask('${level.id}')" class="btn btn-secondary btn-sm mt-2">Jalankan</button>
                             <div id="display-${level.id}" class="mt-2 p-2 bg-base-300 rounded min-h-[30px] px-4"></div>
                         </div>
 
                         <div class="p-4 bg-base-100 rounded border">
                             <h4 class="font-bold mb-2">Submission</h4>
                             <input type="text" id="flag-${level.id}" placeholder="CTF{...}" class="input input-bordered w-full mb-2 px-4">
-                            <button onclick="submitTask('${level.id}')" class="btn btn-primary btn-sm">Submit Flag</button>
+                            <button onclick="submitTask('${level.id}')" class="btn btn-primary btn-sm mt-2">Submit Flag</button>
                         </div>
                     </div>
                 </div>
