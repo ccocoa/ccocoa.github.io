@@ -1,6 +1,6 @@
 export const prerender = false;
 
-export async function onRequestPost(context) {
+export async function POST(context) {
   const { request } = context;
   const body = await request.json();
   const { username, levelId, flag } = body;
@@ -9,10 +9,6 @@ export async function onRequestPost(context) {
   const normalizedUsername = username.trim().toLowerCase();
 
   // Logika validasi HMAC
-  // const crypto = require('crypto');
-  // const expectedFlag = crypto.createHmac('sha256', secret).update(normalizedUsername + levelId).digest('hex');
-
-  // Logika validasi sementara
   const expectedFlag = `CTF{SECRET_${levelId}}`;
 
   if (flag === expectedFlag) {
