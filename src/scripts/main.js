@@ -61,26 +61,28 @@ function renderLevel() {
     getSessionFlag(level.id);
     
     container.innerHTML = `
-        <section class="card">
-            <h2>Level ${level.id}: ${level.title}</h2>
-            <p><strong>Konsep:</strong> ${level.concept}</p>
-            <p><strong>Kasus Nyata:</strong> ${level.real_world_case}</p>
-            <p><strong>Analisis Teknis:</strong> ${level.technical_analysis}</p>
-            <p><strong>Tugas:</strong> ${level.challenge}</p>
-        </section>
+        <div class="card bg-base-200 p-6 shadow-xl">
+            <h2 class="text-2xl font-bold mb-4">Level ${level.id}: ${level.title}</h2>
+            <div class="space-y-2 text-sm">
+                <p><strong>Konsep:</strong> ${level.concept}</p>
+                <p><strong>Kasus Nyata:</strong> ${level.real_world_case}</p>
+                <p><strong>Analisis Teknis:</strong> ${level.technical_analysis}</p>
+                <p><strong>Tugas:</strong> ${level.challenge}</p>
+            </div>
+        </div>
 
-        <section class="card" id="playground">
-          <h3>Playground</h3>
-          <input type="text" id="xss-input" placeholder="Masukkan payload...">
-          <button onclick="runXSS()">Jalankan</button>
-          <div id="display" class="output-box"></div>
-        </section>
+        <div class="card bg-base-100 border p-6 shadow-sm" id="playground">
+          <h3 class="text-lg font-semibold mb-2">Playground</h3>
+          <input type="text" id="xss-input" placeholder="Masukkan payload..." class="input input-bordered w-full mb-2">
+          <button onclick="runXSS()" class="btn btn-secondary">Jalankan</button>
+          <div id="display" class="mt-4 p-4 bg-base-300 rounded min-h-[50px]"></div>
+        </div>
 
-        <section class="card" id="submission">
-          <h3>Flag Submission</h3>
-          <input type="text" id="flag-input" placeholder="CTF{...}">
-          <button onclick="checkFlag()">Submit Flag</button>
-        </section>
+        <div class="card bg-base-100 border p-6 shadow-sm" id="submission">
+          <h3 class="text-lg font-semibold mb-2">Flag Submission</h3>
+          <input type="text" id="flag-input" placeholder="CTF{...}" class="input input-bordered w-full mb-2">
+          <button onclick="checkFlag()" class="btn btn-primary">Submit Flag</button>
+        </div>
     `;
 }
 
