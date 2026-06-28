@@ -1,0 +1,9 @@
+name = "ccocoa-github-io"
+compatibility_date = "2024-01-01"
+
+# For Cloudflare Pages, we use the Pages project name
+type = "javascript"
+
+[site]
+bucket = "public"
+entry-point = ".
