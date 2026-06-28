@@ -1,6 +1,5 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { tasks } from '../scripts/data.js';
 ---
 
 <Layout title="CTF Platform">
@@ -38,25 +37,8 @@ import { tasks } from '../scripts/data.js';
 
             <!-- Game UI -->
             <section id="game-ui" class="hidden">
-                <div class="space-y-4">
-                    {tasks.map((task) => (
-                        <div class="collapse collapse-arrow bg-base-200">
-                            <input type="checkbox" /> 
-                            <div class="collapse-title text-xl font-medium">
-                                {task.title}
-                            </div>
-                            <div class="collapse-content"> 
-                                <div class="prose prose-sm max-w-none mb-4" set:html={task.materi} />
-                                <div class="bg-base-300 p-4 rounded mb-4">
-                                    <p class="font-mono text-sm">{task.eksperimen}</p>
-                                </div>
-                                <div class="form-control mt-4 w-full gap-y-4">
-                                    <input type="text" placeholder={task.playground} class="input input-bordered w-full h-12 px-4 mb-4" />
-                                    <input type="text" placeholder="Enter flag here..." class="input input-bordered w-full h-12 px-4" />
-                                </div>
-                            </div>
-                        </div>
-                    ))}
+                <div id="level-content" class="space-y-4">
+                    <!-- Content will be injected by main.js -->
                 </div>
             </section>
         </div>
