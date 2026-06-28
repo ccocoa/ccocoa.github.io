@@ -1,11 +1,10 @@
-let currentLevel = 0;
 let levels = [];
 
 // Inisialisasi saat load
 document.addEventListener('DOMContentLoaded', () => {
     const username = sessionStorage.getItem('username');
     if (username) {
-        showGameUI(username);
+        showMissionBoard(username);
     }
 });
 
@@ -16,9 +15,7 @@ window.startSession = function() {
         return;
     }
     sessionStorage.setItem('username', username);
-    // Arahkan ke level 1
-    currentLevel = 0; 
-    showGameUI(username);
+    showMissionBoard(username);
 }
 
 window.logout = function() {
@@ -28,9 +25,9 @@ window.logout = function() {
     }, 100);
 }
 
-function showGameUI(username) {
+function showMissionBoard(username) {
     document.getElementById('login-screen').style.display = 'none';
-    document.getElementById('game-ui').style.display = 'block';
+    document.getElementById('mission-board').style.display = 'block';
     const userInfo = document.getElementById('user-info');
     userInfo.style.display = 'flex';
     document.getElementById('username-display').innerText = username;
@@ -39,7 +36,7 @@ function showGameUI(username) {
         .then(res => res.json())
         .then(data => {
             levels = data.levels;
-            renderLevel();
+            renderMissionBoard();
         });
 }
 
@@ -52,54 +49,60 @@ function getSessionFlag(levelId) {
     return sessionFlag;
 }
 
-function renderLevel() {
+function renderMissionBoard() {
     if (!sessionStorage.getItem('username')) return;
 
-    const level = levels[currentLevel];
-    const container = document.getElementById('level-content');
-    
-    getSessionFlag(level.id);
-    
-    container.innerHTML = `
-        <div class="card bg-base-200 p-6 shadow-xl">
-            <h2 class="text-2xl font-bold mb-4">Level ${level.id}: ${level.title}</h2>
-            <div class="space-y-2 text-sm">
-                <p><strong>Konsep:</strong> ${level.concept}</p>
-                <p><strong>Kasus Nyata:</strong> ${level.real_world_case}</p>
-                <p><strong>Analisis Teknis:</strong> ${level.technical_analysis}</p>
-                <p><strong>Tugas:</strong> ${level.challenge}</p>
+    const container = document.getElementById('mission-content');
+    container.innerHTML = levels.map(level => {
+        const isDone = localStorage.getItem(`task_done_${level.id}`) === 'true';
+        const flag = getSessionFlag(level.id);
+        
+        return `
+            <div class="collapse collapse-arrow bg-base-200 border ${isDone ? 'border-success' : 'border-base-300'}">
+                <input type="checkbox" /> 
+                <div class="collapse-title text-xl font-medium flex justify-between items-center">
+                    <span>Level ${level.id}: ${level.title}</span>
+                    ${isDone ? '<span class="badge badge-success">Selesai</span>' : '<span class="badge badge-ghost">Pending</span>'}
+                </div>
+                <div class="collapse-content">
+                    <div class="space-y-4 pt-4">
+                        <div class="text-sm">
+                            <p><strong>Konsep:</strong> ${level.concept}</p>
+                            <p><strong>Tugas:</strong> ${level.challenge}</p>
+                        </div>
+                        
+                        <div class="p-4 bg-base-100 rounded border">
+                            <h4 class="font-bold mb-2">Playground</h4>
+                            <input type="text" id="input-${level.id}" placeholder="Masukkan payload..." class="input input-bordered w-full mb-2">
+                            <button onclick="runTask('${level.id}')" class="btn btn-secondary btn-sm">Jalankan</button>
+                            <div id="display-${level.id}" class="mt-2 p-2 bg-base-300 rounded min-h-[30px]"></div>
+                        </div>
+
+                        <div class="p-4 bg-base-100 rounded border">
+                            <h4 class="font-bold mb-2">Submission</h4>
+                            <input type="text" id="flag-${level.id}" placeholder="CTF{...}" class="input input-bordered w-full mb-2">
+                            <button onclick="submitTask('${level.id}')" class="btn btn-primary btn-sm">Submit Flag</button>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-
-        <div class="card bg-base-100 border p-6 shadow-sm" id="playground">
-          <h3 class="text-lg font-semibold mb-2">Playground</h3>
-          <input type="text" id="xss-input" placeholder="Masukkan payload..." class="input input-bordered w-full mb-2">
-          <button onclick="runXSS()" class="btn btn-secondary">Jalankan</button>
-          <div id="display" class="mt-4 p-4 bg-base-300 rounded min-h-[50px]"></div>
-        </div>
-
-        <div class="card bg-base-100 border p-6 shadow-sm" id="submission">
-          <h3 class="text-lg font-semibold mb-2">Flag Submission</h3>
-          <input type="text" id="flag-input" placeholder="CTF{...}" class="input input-bordered w-full mb-2">
-          <button onclick="checkFlag()" class="btn btn-primary">Submit Flag</button>
-        </div>
-    `;
+        `;
+    }).join('');
 }
 
-window.runXSS = function() {
-    const input = document.getElementById('xss-input').value;
-    document.getElementById('display').innerHTML = input;
+window.runTask = function(id) {
+    const input = document.getElementById(`input-${id}`).value;
+    document.getElementById(`display-${id}`).innerHTML = input;
 }
 
-window.checkFlag = function() {
-    const input = document.getElementById('flag-input').value;
-    const correctFlag = getSessionFlag(levels[currentLevel].id);
+window.submitTask = function(id) {
+    const input = document.getElementById(`flag-${id}`).value;
+    const correctFlag = getSessionFlag(id);
     
     if (input === correctFlag) {
-        alert('Mantap, flag benar! Lanjut level berikutnya.');
-        currentLevel++;
-        if (currentLevel < levels.length) renderLevel();
-        else alert('Selamat, kamu sudah menamatkan semua level!');
+        localStorage.setItem(`task_done_${id}`, 'true');
+        alert('Mantap, flag benar!');
+        renderMissionBoard();
     } else {
         alert('Flag salah, coba lagi!');
     }
