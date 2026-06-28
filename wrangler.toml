@@ -6,4 +6,3 @@ type = "javascript"
 
 [site]
 bucket = "public"
-entry-point = ".
